@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +16,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class CreateAccountActivity extends AppCompatActivity {
@@ -27,10 +36,15 @@ public class CreateAccountActivity extends AppCompatActivity {
     TextView txtSignIn;
     ProgressBar progressBar;
 
+    FirebaseFirestore firebaseFirestore;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
@@ -59,12 +73,39 @@ public class CreateAccountActivity extends AppCompatActivity {
         password = edtPassword.getText().toString();
         confirmPassword = edtConfirmPassword.getText().toString();
 
+
+
         boolean isValidated = validateData(firstName, lastName, phoneNumber, email, password, confirmPassword);
         if (!isValidated){
             return;
         }
 
         createAccountInFirebase(email, password);
+        saveToFirebaseFirestore(firstName, lastName, phoneNumber, email);
+
+    }
+
+    private void saveToFirebaseFirestore(String firstName, String lastName, String phoneNumber, String email) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("firstName", firstName);
+        user.put("lastName", lastName);
+        user.put("phoneNumber", phoneNumber);
+        user.put("email", email);
+
+        firebaseFirestore.collection("user").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(CreateAccountActivity.this, "Successfully saved", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(CreateAccountActivity.this, "Failed to save data", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
     }
 
@@ -79,11 +120,11 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
 
                     //create account is done
-                    Toast.makeText(CreateAccountActivity.this, "Successfully created account", Toast.LENGTH_SHORT).show();
                     firebaseAuth.getCurrentUser().sendEmailVerification();
+
+                    Toast.makeText(CreateAccountActivity.this, "Successfully created account", Toast.LENGTH_SHORT).show();
+
                     firebaseAuth.signOut();
-                    startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
-                    finish();
 
                 } else {
 
