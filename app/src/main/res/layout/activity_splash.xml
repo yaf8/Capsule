@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/background_image"
+    android:gravity="center"
     tools:context=".MainActivity">
 
     <ImageView
@@ -12,7 +13,6 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/capsule_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp"
         android:contentDescription="LOGO"
         tools:ignore="HardcodedText" />
 
