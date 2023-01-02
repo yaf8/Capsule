@@ -9,9 +9,9 @@ public class Product {
 
     String imageUrl;
 
-    public Product(String productName, String productID, String productShortDescription, String productLongDescription, double productPrice, String imageUrl) {
-        this.productName = productName;
+    public Product(String productID, String productName, String productShortDescription, String productLongDescription, double productPrice, String imageUrl) {
         this.productID = productID;
+        this.productName = productName;
         this.productShortDescription = productShortDescription;
         this.productLongDescription = productLongDescription;
         this.productPrice = productPrice;

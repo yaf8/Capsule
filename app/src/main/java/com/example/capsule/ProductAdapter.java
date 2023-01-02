@@ -1,6 +1,7 @@
 package com.example.capsule;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.capsule.fragments.HomeFragment;
 
 import org.w3c.dom.Text;
 
@@ -49,7 +51,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
 
         holder.parentLayout.setOnClickListener(v -> {
-            Toast.makeText(context, products.get(position).getProductName(), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(context, ProductActivity.class);
+            intent.putExtra(HomeFragment.PRODUCT_ID_KEY, products.get(position).getProductID());
+            context.startActivity(intent);
+
         });
     }
 

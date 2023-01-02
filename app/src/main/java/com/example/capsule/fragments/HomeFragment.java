@@ -14,12 +14,16 @@ import com.example.capsule.Product;
 import com.example.capsule.ProductActivity;
 import com.example.capsule.ProductAdapter;
 import com.example.capsule.R;
+import com.example.capsule.Utils;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
+    public static final String PRODUCT_ID_KEY = "productID";
+
     private RecyclerView recycleVerticalItems;
+    private ProductAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -27,22 +31,9 @@ public class HomeFragment extends Fragment {
 
         recycleVerticalItems = view.findViewById(R.id.recycleVerticalItems);
 
-        
-        ArrayList<Product> productsList = new ArrayList<>();
 
-        productsList.add(new Product("Panadol", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        productsList.add(new Product("Amoxilin", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        productsList.add(new Product("Panadol", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        productsList.add(new Product("Amoxilin", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        productsList.add(new Product("Panadol", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        productsList.add(new Product("Amoxilin", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        productsList.add(new Product("Panadol", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        productsList.add(new Product("Amoxilin", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        productsList.add(new Product("Panadol", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        productsList.add(new Product("Amoxilin", "MED1", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-
-        ProductAdapter adapter = new ProductAdapter(getActivity());
-        adapter.setProduct(productsList);
+        adapter = new ProductAdapter(getActivity());
+        adapter.setProduct(Utils.getInstance().getAllProducts());
 
         recycleVerticalItems.setAdapter(adapter);
 
@@ -54,8 +45,4 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    String LongDescription = "Panadol contains paracetamol; recognised by the medical profession as effective medication " +
-            "for you and your family. Panadol is indicated for: Headache, Colds & Influenza, Backache, Period Pain, Pain of Osteoarthritis, " +
-            "Muscle Pain, Toothache, Rheumatic Pain.";
-    String url = "https://oneononepharmacy.com/wp-content/uploads/Panadol-Tab-24.jpg";
 }
