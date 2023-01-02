@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@mipmap/background_image"
     tools:context=".LoginActivity">
 
@@ -121,7 +122,7 @@
                     android:paddingVertical="10dp"
                     android:text="Sign in"
                     android:textSize="20sp"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText"/>
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -161,7 +162,7 @@
                     android:textSize="16sp"
                     android:textAllCaps="true"
                     android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText"/>
 
             </RelativeLayout>
 
