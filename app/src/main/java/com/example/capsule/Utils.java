@@ -23,7 +23,7 @@ public class Utils {
 
         allProducts.add(new Product("MED1", "Panadol", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
         allProducts.add(new Product("MED2", "Amoxilin", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
-        allProducts.add(new Product("MED3", "Panadol", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
+        allProducts.add(new Product("MED3", "Panadol", "PANADOL 500mg FILM-COATED TABLETS", "Here long description will be written.", 50.13, url));
         allProducts.add(new Product("MED4", "Amoxilin", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
         allProducts.add(new Product("MED5", "Panadol", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
         allProducts.add(new Product("MED6", "Amoxilin", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));

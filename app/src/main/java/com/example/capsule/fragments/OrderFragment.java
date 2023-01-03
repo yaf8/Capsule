@@ -17,7 +17,7 @@ import com.google.android.material.button.MaterialButton;
 
 public class OrderFragment extends Fragment {
 
-    RecyclerView recyclerCart;
+    RecyclerView recycleCart;
     MaterialButton btnOrder;
     ProductAdapter adapter;
 
@@ -27,16 +27,24 @@ public class OrderFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_order, container, false);
 
-        recyclerCart = view.findViewById(R.id.recycleCart);
+        recycleCart = view.findViewById(R.id.recycleCart);
         btnOrder = view.findViewById(R.id.btnOrder);
 
         adapter = new ProductAdapter(getActivity());
         adapter.setProduct(Utils.getInstance().getCartProducts());
 
-        recyclerCart.setAdapter(adapter);
+        recycleCart.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerCart.setLayoutManager(linearLayoutManager);
+        recycleCart.setLayoutManager(linearLayoutManager);
+
+        btnOrder.setOnClickListener(v -> {
+
+
+
+
+        });
 
 
         // Inflate the layout for this fragment

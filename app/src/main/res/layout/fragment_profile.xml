@@ -36,10 +36,12 @@
                     android:contentDescription="Capsule Icon"
                     tools:ignore="HardcodedText" />
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imageProfile"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:contentDescription="Profile Image"

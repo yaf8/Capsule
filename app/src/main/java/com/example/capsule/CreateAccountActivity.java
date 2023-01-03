@@ -21,6 +21,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,7 +40,6 @@ public class CreateAccountActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     FirebaseFirestore firebaseFirestore;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +120,17 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 changeInProgress(false);
                 if (task.isSuccessful()){
+                    //uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
+                    //Todo: test profile update
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(edtFirstName.getText().toString() + " " + edtLastName.getText().toString())
+                            .build();
+                    assert user != null;
+                    user.updateProfile(profile);
+
+                    //todo: test profile update
+                    //uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
 
                     //create account is done
                     firebaseAuth.getCurrentUser().sendEmailVerification();
