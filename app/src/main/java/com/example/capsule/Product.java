@@ -3,11 +3,12 @@ package com.example.capsule;
 import android.net.Uri;
 
 public class Product {
-    Uri productImage;
-    String productName, productID, productShortDescription, productLongDescription;
-    double productPrice;
+    private Uri productImage;
+    private String productName, productID, productShortDescription, productLongDescription;
+    private double productPrice;
+    private boolean isExpanded;
 
-    String imageUrl;
+    private String imageUrl;
 
     public Product(String productID, String productName, String productShortDescription, String productLongDescription, double productPrice, String imageUrl) {
         this.productID = productID;
@@ -16,6 +17,7 @@ public class Product {
         this.productLongDescription = productLongDescription;
         this.productPrice = productPrice;
         this.imageUrl = imageUrl;
+        isExpanded = false;
     }
 
     public String getImageUrl() {
@@ -80,6 +82,14 @@ public class Product {
 
     public double getProductPrice() {
         return productPrice;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 
     public void setProductPrice(double productPrice) {

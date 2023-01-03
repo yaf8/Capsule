@@ -62,6 +62,16 @@ public class Utils {
         return null;
     }
 
+    public boolean addToCart(Product product) {
+        return cartProducts.add(product);
+    }
+
+
+
+
+
+
+
 
     ///////////////////////////////////////////////////////////////////////
     String LongDescription = "Panadol contains paracetamol; recognised by the medical profession as effective medication " +

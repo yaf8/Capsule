@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@mipmap/background_image"
     android:layout_height="match_parent"
     tools:context=".ProductActivity">
 
@@ -14,7 +15,6 @@
         android:layout_marginHorizontal="5dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="60dp"
-        android:background="@mipmap/background_image"
         android:padding="5dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="5dp"
@@ -148,7 +148,8 @@
                     <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@+id/txtDescription">
+                        android:layout_below="@+id/txtDescription"
+                        android:layout_marginBottom="20dp">
 
                         <TextView
                             android:id="@+id/txtLongDescription"
@@ -156,10 +157,11 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="10dp"
-                            android:text="Long Descripton"
+                            android:text="Long Description"
                             android:textColor="#575454"
                             android:textSize="16sp"
-                            android:textStyle="italic" />
+                            android:textStyle="italic"
+                            tools:ignore="HardcodedText" />
                     </ScrollView>
 
 
@@ -173,10 +175,8 @@
                 android:id="@+id/relativeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginEnd="10dp">
 
 
                 <Button

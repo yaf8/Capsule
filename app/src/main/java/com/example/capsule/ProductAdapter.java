@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionManager;
 
 import com.bumptech.glide.Glide;
 import com.example.capsule.fragments.HomeFragment;
@@ -57,6 +58,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             context.startActivity(intent);
 
         });
+
+        holder.txtExpandedDescription.setText(products.get(position).getProductLongDescription());
+
+        if (products.get(position).isExpanded()){
+            TransitionManager.beginDelayedTransition(holder.parentLayout);
+            holder.expandedRelativeLayout.setVisibility(View.VISIBLE);
+            holder.arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+        } else {
+            TransitionManager.beginDelayedTransition(holder.parentLayout);
+            holder.expandedRelativeLayout.setVisibility(View.GONE);
+            holder.arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+        }
+
+
     }
 
     public void setProduct(ArrayList<Product> products) {
@@ -75,6 +90,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         private TextView txtShortDescription;
         private ImageView imgProduct;
         private CardView parentLayout;
+        private ImageView arrow;
+        private RelativeLayout expandedRelativeLayout;
+        private TextView txtExpandedDescription;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,7 +100,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             txtShortDescription = itemView.findViewById(R.id.txtShortDescription);
             parentLayout = itemView.findViewById(R.id.parentLayout);
             imgProduct = itemView.findViewById(R.id.imgProduct);
+            arrow = itemView.findViewById(R.id.expendArrow);
+            expandedRelativeLayout = itemView.findViewById(R.id.expandedRelativeLayout);
+            txtExpandedDescription = itemView.findViewById(R.id.txtExpandedDescription);
 
+            arrow.setOnClickListener(v -> {
+                Product product = products.get(getAdapterPosition());
+                product.setExpanded(!product.isExpanded());
+                notifyItemChanged(getAdapterPosition());
+            });
         }
     }
 }

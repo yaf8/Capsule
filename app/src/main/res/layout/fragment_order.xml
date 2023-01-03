@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.OrderFragment">
 
     <ImageView
@@ -19,14 +20,39 @@
     <ScrollView
         android:layout_below="@+id/CapsuleLogo"
         android:layout_width="match_parent"
+        android:layout_above="@id/btnOrder"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
+
         android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/recycleOrder"/>
+            android:id="@+id/recycleCart"/>
 
     </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#0EB34A"
+        android:drawableEnd="@drawable/ic_baseline_start_24"
+        android:fontFamily="sans-serif-medium"
+        android:paddingHorizontal="40dp"
+        android:paddingVertical="10dp"
+        android:text="Initiate order"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="20dp"
+        app:elevation="10dp"
+        app:strokeColor="@color/white"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>

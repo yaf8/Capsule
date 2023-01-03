@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.capsule.fragments.HomeFragment;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -27,9 +30,6 @@ public class ProductActivity extends AppCompatActivity {
 
         initView();
 
-
-        Product product = new Product("MED1", "Panadol", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url);
-
         Intent intent = getIntent();
         if (intent != null) {
 
@@ -40,12 +40,45 @@ public class ProductActivity extends AppCompatActivity {
 
                 if (incomingProduct != null){
                     setData(incomingProduct);
+                    handleAddtoCart(incomingProduct);
                 }
             }
         }
 
 
     }
+
+
+    private void handleAddtoCart(Product product) {
+        ArrayList<Product> cartProducts = Utils.getInstance().getCartProducts();
+
+        boolean existInCart = false;
+
+        /*
+        for (Product p: cartProducts)
+        {
+            if (Objects.equals(p.getProductID(), product.getProductID()))
+            {
+                existInCart = false;
+            }
+        }
+
+        /*
+            if (existInCart){
+                btnAdd.setEnabled(false);
+            } else {
+
+            }*/
+        btnAdd.setOnClickListener(v -> {
+            if (Utils.getInstance().addToCart(product)){
+                Toast.makeText(this, "Product Added to Cart", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Something wrong happened, try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
 
     private void setData(Product product) {
         txtProductName.setText(product.getProductName());
@@ -65,6 +98,7 @@ public class ProductActivity extends AppCompatActivity {
         txtShortDescription = findViewById(R.id.txtShortDescription);
         txtLongDescription = findViewById(R.id.txtLongDescription);
         txtProductPrice = findViewById(R.id.txtProductPrice);
+        btnAdd = findViewById(R.id.btnAdd);
     }
 
     String LongDescription = "Panadol contains paracetamol; recognised by the medical profession as effective medication " +
