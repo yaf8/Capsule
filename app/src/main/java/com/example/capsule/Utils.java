@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.capsule.fragments.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -50,12 +51,14 @@ public class Utils {
                                 Log.d(TAG, document.getId() + " => " + document.get("productName"));
                                 allProducts.add(new Product(
                                         document.getId(),
-                                        document.get("productName").toString(),
-                                        document.get("shortDescription").toString(),
-                                        document.get("longDescription").toString(),
-                                        document.get("productPrice").toString(),
-                                        document.get("productImageUri").toString()));
-                            }
+                                        Objects.requireNonNull(document.get("productName")).toString(),
+                                        Objects.requireNonNull(document.get("shortDescription")).toString(),
+                                        Objects.requireNonNull(document.get("longDescription")).toString(),
+                                        Objects.requireNonNull(document.get("productPrice")).toString(),
+                                        Objects.requireNonNull(document.get("productImageUri")).toString()));
+
+                                        HomeFragment.adapter.notifyDataSetChanged();
+                                }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }

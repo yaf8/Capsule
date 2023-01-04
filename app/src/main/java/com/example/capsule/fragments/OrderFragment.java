@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,14 @@ public class OrderFragment extends Fragment {
         adapter.setProduct(Utils.getInstance().getCartProducts());
 
         recycleCart.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        }, 2000);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recycleCart.setLayoutManager(linearLayoutManager);

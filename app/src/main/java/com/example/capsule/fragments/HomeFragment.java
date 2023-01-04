@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class HomeFragment extends Fragment {
     public static final String PRODUCT_ID_KEY = "productID";
 
     private RecyclerView recycleVerticalItems;
-    private ProductAdapter adapter;
+    public static ProductAdapter adapter;
     private ImageButton imgBtnSearch;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,14 +42,16 @@ public class HomeFragment extends Fragment {
         adapter.setProduct(Utils.getInstance().getAllProducts());
 
         recycleVerticalItems.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        }, 2000);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recycleVerticalItems.setLayoutManager(linearLayoutManager);
-
-
-
-
 
 
 

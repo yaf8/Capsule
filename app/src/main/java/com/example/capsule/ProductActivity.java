@@ -101,10 +101,4 @@ public class ProductActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btnAdd);
     }
 
-    String LongDescription = "Panadol contains paracetamol; recognised by the medical profession as effective medication " +
-            "for you and your family. Panadol is indicated for: Headache, Colds & Influenza, Backache, Period Pain, Pain of Osteoarthritis, " +
-            "Muscle Pain, Toothache, Rheumatic Pain.";
-    String url = "https://oneononepharmacy.com/wp-content/uploads/Panadol-Tab-24.jpg";
-
-
 }
