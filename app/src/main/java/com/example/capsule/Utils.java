@@ -1,5 +1,18 @@
 package com.example.capsule;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -21,6 +34,38 @@ public class Utils {
     private void initData() {
 
 
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+        CollectionReference prodRef = database.collection("products");
+
+
+
+        database.collection("products")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.get("productName"));
+                                allProducts.add(new Product(
+                                        document.getId(),
+                                        document.get("productName").toString(),
+                                        document.get("shortDescription").toString(),
+                                        document.get("longDescription").toString(),
+                                        document.get("productPrice").toString(),
+                                        document.get("productImageUri").toString()));
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
+
+
+        /*
         allProducts.add(new Product("MED1", "Panadol", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
         allProducts.add(new Product("MED2", "Amoxilin", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
         allProducts.add(new Product("MED3", "Panadol", "PANADOL 500mg FILM-COATED TABLETS", "Here long description will be written.", 50.13, url));
@@ -31,6 +76,9 @@ public class Utils {
         allProducts.add(new Product("MED8", "Amoxilin", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
         allProducts.add(new Product("MED9", "Panadol", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
         allProducts.add(new Product("MED10", "Amoxilin", "PANADOL 500mg FILM-COATED TABLETS", LongDescription, 50.13, url));
+        */
+
+
 
     }
 

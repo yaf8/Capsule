@@ -5,12 +5,12 @@ import android.net.Uri;
 public class Product {
     private Uri productImage;
     private String productName, productID, productShortDescription, productLongDescription;
-    private double productPrice;
+    private String productPrice;
     private boolean isExpanded;
 
     private String imageUrl;
 
-    public Product(String productID, String productName, String productShortDescription, String productLongDescription, double productPrice, String imageUrl) {
+    public Product(String productID, String productName, String productShortDescription, String productLongDescription, String productPrice, String imageUrl) {
         this.productID = productID;
         this.productName = productName;
         this.productShortDescription = productShortDescription;
@@ -31,7 +31,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Uri productImage, String productName, String productID, String productShortDescription, String productLongDescription, double productPrice) {
+    public Product(Uri productImage, String productName, String productID, String productShortDescription, String productLongDescription, String productPrice) {
         this.productImage = productImage;
         this.productName = productName;
         this.productID = productID;
@@ -80,7 +80,7 @@ public class Product {
         this.productLongDescription = productLongDescription;
     }
 
-    public double getProductPrice() {
+    public String getProductPrice() {
         return productPrice;
     }
 
@@ -92,7 +92,7 @@ public class Product {
         isExpanded = expanded;
     }
 
-    public void setProductPrice(double productPrice) {
+    public void setProductPrice(String productPrice) {
         this.productPrice = productPrice;
     }
 }
