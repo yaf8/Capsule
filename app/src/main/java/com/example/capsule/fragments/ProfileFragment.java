@@ -1,27 +1,21 @@
 package com.example.capsule.fragments;
 
 import android.content.Intent;
-import android.content.IntentSender;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.capsule.HelpAndSupportActivity;
 import com.example.capsule.LoginActivity;
-import com.example.capsule.MainActivity;
 import com.example.capsule.PrivacyPolicyActivity;
 import com.example.capsule.R;
 import com.example.capsule.TermAndConditionActivity;
@@ -30,15 +24,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,7 +40,7 @@ import java.util.Locale;
 public class ProfileFragment extends Fragment {
 
     private static final int CHOOSE_IMAGE = 101;
-    TextView  txtEmail, txtBtnPrivacy, txtBtnHelp, txtBtnTerm, txtBtnLogout;
+    TextView txtEmail, txtBtnPrivacy, txtBtnHelp, txtBtnTerm, txtBtnLogout;
     private ShapeableImageView imageProfile;
     private TextView txtFullName;
     FirebaseAuth firebaseAuth;
@@ -72,14 +64,12 @@ public class ProfileFragment extends Fragment {
         imageProfile = view.findViewById(R.id.imageProfile);
 
 
-
-
         firebaseAuth = FirebaseAuth.getInstance();
 
 
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        if (firebaseUser != null){
+        if (firebaseUser != null) {
             txtFullName.setText(firebaseUser.getDisplayName());
         }
 
@@ -94,8 +84,6 @@ public class ProfileFragment extends Fragment {
         //         .build();
         //assert user != null;
         //user.updateProfile(profile);
-
-
 
 
         txtBtnLogout.setOnClickListener(v -> {
@@ -122,25 +110,29 @@ public class ProfileFragment extends Fragment {
         });
 
 
-
         // Inflate the layout for this fragment
         return view;
     }
 
     private void loadUserInfo() {
-        if (firebaseUser != null)
-            if(firebaseUser.getPhotoUrl() != null)
+        if (firebaseUser != null) {
+
+            UserInfo info = FirebaseAuth.getInstance().getCurrentUser();
+            txtEmail.setText(info.getEmail());
+
+            if (firebaseUser.getPhotoUrl() != null)
                 Glide.with(getActivity())
                         .load(firebaseUser.getPhotoUrl())
                         .into(imageProfile);
         }
+    }
 
     private void UpdateProfileImage() {
 
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Profile Image" ), CHOOSE_IMAGE);
+        startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
 
     }
 
@@ -148,7 +140,7 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CHOOSE_IMAGE && data != null && data.getData() != null){
+        if (requestCode == CHOOSE_IMAGE && data != null && data.getData() != null) {
             uriProfileImage = data.getData();
             imageProfile.setImageURI(uriProfileImage);
             uploadImage();
@@ -164,7 +156,7 @@ public class ProfileFragment extends Fragment {
         String fileName = simpleDateFormat.format(now);
 
 
-        storageReference = FirebaseStorage.getInstance().getReference("profileImage/"+fileName);
+        storageReference = FirebaseStorage.getInstance().getReference("profileImage/" + fileName);
 
         storageReference.putFile(uriProfileImage)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -191,7 +183,6 @@ public class ProfileFragment extends Fragment {
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
-
 
 
                     }
