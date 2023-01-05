@@ -46,6 +46,7 @@
                     android:id="@+id/txtProductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
                     android:text="Product Name"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -60,6 +61,30 @@
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imgProduct"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="15dp"
+                android:layout_toEndOf="@+id/imgProduct"
+                android:fontFamily="@font/arbutus"
+                android:text="Price"
+                android:textColor="#51C102"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="birr"
+                android:textColor="#393838"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/txtPrice"
+                android:layout_alignBottom="@+id/txtPrice"
+                tools:ignore="HardcodedText" />
 
             <ImageView
                 android:id="@+id/expendArrow"
@@ -85,7 +110,7 @@
             android:layout_marginBottom="8dp"
             android:background="#F1F0F0"
             android:padding="5dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
 
             <ScrollView
@@ -112,6 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="3dp"
                         android:layout_marginTop="5dp"
+                        android:textColor="#232222"
                         android:padding="3dp"
                         android:text="Long Description"
                         tools:ignore="HardcodedText" />

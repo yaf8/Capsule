@@ -45,6 +45,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtProductName.setText(products.get(position).getProductName());
         holder.txtShortDescription.setText(products.get(position).getProductShortDescription());
+        holder.txtPrice.setText(products.get(position).getProductPrice());
         Glide.with(context)
                 .asBitmap()
                 .load(products.get(position).getImageUrl())
@@ -93,6 +94,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         private ImageView arrow;
         private RelativeLayout expandedRelativeLayout;
         private TextView txtExpandedDescription;
+        private TextView txtPrice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +105,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             arrow = itemView.findViewById(R.id.expendArrow);
             expandedRelativeLayout = itemView.findViewById(R.id.expandedRelativeLayout);
             txtExpandedDescription = itemView.findViewById(R.id.txtExpandedDescription);
+            txtPrice = itemView.findViewById(R.id.txtPrice);
 
             arrow.setOnClickListener(v -> {
                 Product product = products.get(getAdapterPosition());
