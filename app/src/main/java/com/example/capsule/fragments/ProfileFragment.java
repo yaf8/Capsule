@@ -120,8 +120,10 @@ public class ProfileFragment extends Fragment {
             UserInfo info = FirebaseAuth.getInstance().getCurrentUser();
             txtEmail.setText(info.getEmail());
 
+            System.out.println("Profile URL : " + firebaseUser.getPhotoUrl());
+
             if (firebaseUser.getPhotoUrl() != null)
-                Glide.with(getActivity())
+                Glide.with(requireActivity())
                         .load(firebaseUser.getPhotoUrl())
                         .into(imageProfile);
         }
@@ -163,24 +165,35 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        downloadProfileImageUrl = storageReference.getDownloadUrl().toString();
 
-
-                        UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                                .setPhotoUri(Uri.parse(downloadProfileImageUrl))
-                                .build();
-                        firebaseUser.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
-
+                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful())
-                                    Toast.makeText(getActivity(), "Profile Image Updated", Toast.LENGTH_SHORT).show();
+                            public void onSuccess(Uri uri) {
+                                downloadProfileImageUrl = uri.toString();
+                                System.out.println("URI PATH : " + uri.toString());
 
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+
+                                UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                                        .setPhotoUri(uri)
+                                        .build();
+                                System.out.println("Image URI before upload : " + uriProfileImage);
+                                System.out.println("Download URL value : " + downloadProfileImageUrl);
+                                firebaseUser.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful())
+                                            Toast.makeText(getActivity(), "Profile Image Updated", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+
                             }
                         });
 
@@ -194,6 +207,5 @@ public class ProfileFragment extends Fragment {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
-
     }
 }

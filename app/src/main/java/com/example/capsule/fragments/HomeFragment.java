@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,7 @@ public class HomeFragment extends Fragment {
     public static ProductAdapter adapter;
     private ImageButton imgBtnSearch;
     private StorageReference storageReference;
+    private ImageView capsuleLogo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class HomeFragment extends Fragment {
 
         recycleVerticalItems = view.findViewById(R.id.recycleVerticalItems);
         imgBtnSearch = view.findViewById(R.id.imgBtnSearch);
+        capsuleLogo = view.findViewById(R.id.capsuleLogo);
 
 
         adapter = new ProductAdapter(getActivity());
@@ -67,6 +70,7 @@ public class HomeFragment extends Fragment {
             startActivity(new Intent(getActivity(), TempActivity.class));
         });
 
+        capsuleLogo.setOnClickListener(v -> adapter.notifyDataSetChanged());
 
         return view;
     }

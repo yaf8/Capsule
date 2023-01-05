@@ -5,12 +5,21 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
 
+    <ImageView
+        android:id="@+id/capsuleLogo"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="60dp"
+        android:src="@mipmap/capsule_logo"
+        android:layout_centerHorizontal="true"/>
+
     <RelativeLayout
         android:id="@+id/relativeSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         android:gravity="center">
 
         <EditText
@@ -45,12 +54,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/contentScroll"
-        android:layout_below="@+id/relativeSearch">
+
+        android:layout_below="@+id/capsuleLogo">
 
         <LinearLayout
             android:id="@+id/linearScrollVertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 

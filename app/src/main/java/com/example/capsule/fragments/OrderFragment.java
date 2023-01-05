@@ -92,7 +92,7 @@ public class OrderFragment extends Fragment {
 
             for (Product cartProduct : Utils.getCartProducts()) {
 
-                String order = "   User Email : " + user.getEmail() +
+                String order = "User Email : " + user.getEmail() +
                         "   User Name : " + user.getDisplayName() +
                         "   Medicine : " +cartProduct.getProductName();
 
