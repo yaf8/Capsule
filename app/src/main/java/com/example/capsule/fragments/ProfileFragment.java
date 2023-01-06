@@ -120,7 +120,7 @@ public class ProfileFragment extends Fragment {
             UserInfo info = FirebaseAuth.getInstance().getCurrentUser();
             txtEmail.setText(info.getEmail());
 
-            System.out.println("Profile URL : " + firebaseUser.getPhotoUrl());
+            //System.out.println("Profile URL : " + firebaseUser.getPhotoUrl());
 
             if (firebaseUser.getPhotoUrl() != null)
                 Glide.with(requireActivity())
@@ -148,7 +148,6 @@ public class ProfileFragment extends Fragment {
             uploadImage();
 
         }
-
     }
 
     private void uploadImage() {
@@ -170,7 +169,7 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public void onSuccess(Uri uri) {
                                 downloadProfileImageUrl = uri.toString();
-                                System.out.println("URI PATH : " + uri.toString());
+                                //System.out.println("URI PATH : " + uri.toString());
 
 
                                 UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
@@ -184,7 +183,6 @@ public class ProfileFragment extends Fragment {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful())
                                             Toast.makeText(getActivity(), "Profile Image Updated", Toast.LENGTH_SHORT).show();
-
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -192,17 +190,12 @@ public class ProfileFragment extends Fragment {
                                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 });
-
-
                             }
                         });
-
-
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
                         imageProfile.setImageResource(R.mipmap.profile_icon);
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }

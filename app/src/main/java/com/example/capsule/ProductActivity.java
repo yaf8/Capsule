@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.capsule.fragments.HomeFragment;
+import com.example.capsule.fragments.OrderFragment;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -75,6 +76,7 @@ public class ProductActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Something wrong happened, try again", Toast.LENGTH_SHORT).show();
             }
+            OrderFragment.adapter.notifyDataSetChanged();
         });
 
     }

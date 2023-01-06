@@ -39,7 +39,7 @@ import java.util.ArrayList;
 public class OrderFragment extends Fragment {
 
     private RecyclerView recycleCart;
-    public ProductAdapter adapter;
+    public static ProductAdapter adapter;
     private MaterialButton btnOrder;
     private ImageView capsuleLogo;
     private StorageReference storageReference;
