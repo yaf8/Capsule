@@ -79,14 +79,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     //login successful
-                    if (firebaseAuth.getCurrentUser().isEmailVerified()){
+                    //if (firebaseAuth.getCurrentUser().isEmailVerified()){
                         // go to main activity
                         Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Email not verify, Please verify your email.", Toast.LENGTH_LONG).show();
-                    }
+                    //} else {
+                    //    Toast.makeText(LoginActivity.this, "Email not verify, Please verify your email.", Toast.LENGTH_LONG).show();
+                    //}
 
                 } else {
                     //login failure
