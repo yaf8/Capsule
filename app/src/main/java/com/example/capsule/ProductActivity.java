@@ -76,7 +76,7 @@ public class ProductActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Something wrong happened, try again", Toast.LENGTH_SHORT).show();
             }
-            OrderFragment.adapter.notifyDataSetChanged();
+            //OrderFragment.adapter.notifyDataSetChanged();
         });
 
     }
