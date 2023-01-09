@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void unused) {
 
+                                    System.out.println("Is user deleted : " + firebaseUser == null);
+
                                     Toast.makeText(getApplicationContext(), "Your account has been Deleted", Toast.LENGTH_SHORT).show();
                                     docRef.delete();
                                     startActivity(new Intent(MainActivity.this, LoginActivity.class));

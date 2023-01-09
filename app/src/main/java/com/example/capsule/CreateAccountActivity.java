@@ -89,7 +89,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         createAccountInFirebase(email, password);
         saveToFirebaseFirestore(firstName, lastName, phoneNumber, email);
 
-        saveUserData();
+
         auth = FirebaseAuth.getInstance();
         auth.signOut();
 
@@ -121,8 +121,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(CreateAccountActivity.this, "Successfully saved", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
-                        finish();
                         Log.d(TAG, "DocumentSnapshot successfully written!");
                     }
                 })
@@ -169,6 +167,10 @@ public class CreateAccountActivity extends AppCompatActivity {
                 changeInProgress(false);
                 if (task.isSuccessful()){
 
+                    saveUserData();
+                    startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
+                    finish();
+
                     //Todo: test profile update
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
@@ -176,6 +178,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                             .build();
                     assert user != null;
                     user.updateProfile(profile);
+
+
 
                     Toast.makeText(CreateAccountActivity.this, "Successfully created account", Toast.LENGTH_SHORT).show();
 
