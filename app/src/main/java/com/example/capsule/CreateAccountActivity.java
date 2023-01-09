@@ -42,9 +42,8 @@ public class CreateAccountActivity extends AppCompatActivity {
     TextView txtSignIn;
     ProgressBar progressBar;
     FirebaseFirestore db, db2;
-
-
     FirebaseFirestore firebaseFirestore;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +89,11 @@ public class CreateAccountActivity extends AppCompatActivity {
         createAccountInFirebase(email, password);
         saveToFirebaseFirestore(firstName, lastName, phoneNumber, email);
 
+        saveUserData();
+        auth = FirebaseAuth.getInstance();
+        auth.signOut();
+
+
     }
 
     private void saveUserData(){
@@ -97,7 +101,6 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         db2 = FirebaseFirestore.getInstance();
-        UserInfo userInfo = FirebaseAuth.getInstance().getCurrentUser();
 
         //------------------------------------Save_Data----------------------------
 
@@ -112,15 +115,14 @@ public class CreateAccountActivity extends AppCompatActivity {
         user.put("userType", "Customer");
         user.put("profileURL", "https://icon-library.com/images/user-icon-jpg/user-icon-jpg-8.jpg");
 
-        Map<String, Object> userEmail = new HashMap<>();
-        userEmail.put("userEmail",userInfo.getEmail());
-
         db.collection("Accounts/").document(edtEmail.getText().toString())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(CreateAccountActivity.this, "DocumentSnapshot successfully written!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccountActivity.this, "Successfully saved", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
+                        finish();
                         Log.d(TAG, "DocumentSnapshot successfully written!");
                     }
                 })
@@ -145,9 +147,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         firebaseFirestore.collection("user").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(CreateAccountActivity.this, "Successfully saved", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
-                finish();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -169,7 +169,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                 changeInProgress(false);
                 if (task.isSuccessful()){
 
-                    saveUserData();
                     //Todo: test profile update
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
@@ -180,7 +179,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                     Toast.makeText(CreateAccountActivity.this, "Successfully created account", Toast.LENGTH_SHORT).show();
 
-                    firebaseAuth.signOut();
+
 
                 } else {
 

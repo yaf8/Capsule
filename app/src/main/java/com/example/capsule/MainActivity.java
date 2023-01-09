@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        updateDeleted();
 
     }
 
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         UserInfo userInfo = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         //CollectionReference colRef = db.collection("Accounts");
 
         //-----------------------------------Read_Data-----------------------------
@@ -98,14 +100,18 @@ public class MainActivity extends AppCompatActivity {
                     if (Boolean.TRUE.equals(snapshot.getBoolean("isDeleted"))) {
                         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                        assert firebaseUser != null;
-                        firebaseUser.delete();
-                        docRef.delete();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        finish();
-                        firebaseAuth.signOut();
-                        if (firebaseUser.delete().isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Your account has been Deleted", Toast.LENGTH_SHORT).show();
+                        if(firebaseUser != null) {
+                            firebaseUser.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+
+                                    Toast.makeText(getApplicationContext(), "Your account has been Deleted", Toast.LENGTH_SHORT).show();
+                                    docRef.delete();
+                                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                    finish();
+                                    firebaseAuth.signOut();
+                                }
+                            });
                         }
                     }
                 }
